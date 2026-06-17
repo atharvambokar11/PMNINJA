@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { supabase } from '../../lib/supabase';
 import { Mic, Square, Send, Sun, Moon } from 'lucide-react';
@@ -16,7 +16,7 @@ function renderContent(text) {
   });
 }
 
-export default function InterviewPage() {
+function InterviewContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('id');
   const router = useRouter();
@@ -646,5 +646,13 @@ export default function InterviewPage() {
 
     </div>
     </>
+  );
+}
+
+export default function InterviewPage() {
+  return (
+    <Suspense>
+      <InterviewContent />
+    </Suspense>
   );
 }
