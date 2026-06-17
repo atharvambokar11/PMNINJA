@@ -1,10 +1,10 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { supabase } from '../../lib/supabase';
 import { AlertTriangle, Home, Star } from 'lucide-react';
 
-export default function FeedbackPage() {
+function FeedbackContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('id');
   const router = useRouter();
@@ -184,5 +184,13 @@ export default function FeedbackPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function FeedbackPage() {
+  return (
+    <Suspense>
+      <FeedbackContent />
+    </Suspense>
   );
 }
